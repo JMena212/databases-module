@@ -1,0 +1,74 @@
+1. What data types do each of these values represent?
+
+"A Clockwork Orange"  is a string.
+42 is an integer value
+09/02/1945 is a DATE
+98.7 is a FLOAT
+$15.99  is a MONEY data type in SQL
+
+
+2. Explain in your own words when a database might be used.
+Explain when a text file might be used.
+
+A database is required any time that multiple applications are accessing
+or manipulating data. Databases files store data in a manner that allows
+for quick retrieval/creation/removal/updates of data. This is critical when dealing
+with large amounts of data.
+
+Text files are human readable and are ideal file types when we don't expect the data
+displayed to change very often.
+
+3. Describe one difference between SQL and other programming languages.
+
+One difference between SQL and other programming languages like Ruby, for example,
+is that it SQL is a declarative language versus a procedural/object oriented language.
+In SQL, we make a request to a database. In a procedural language, we lay out the steps
+(algorithms) needed to produce an intended result.
+
+4 & 5.  In your own words, explain how the pieces of a database system fit together at a high level.
+xplain the meaning of table, row, column, and value.
+
+
+
+In a database system, data is laid out in tables with columns and rows. Values are stored in cells
+within those tables. Each single column will house one category or label or data type. Rows
+provide an entire set of values across various columns. If the database had measurables for humans, for example,
+a column might be "HEIGHT" or "WEIGHT". A row would have all the values across all columns: name, height, weight, age, etc.
+
+
+6. Three data types that can be used in a table are float, string, date.
+
+
+7. SELECT date, amount
+   FROM payments;
+   *This query will return all the dates (value) and amounts (value) of all payments listed. Dates and amounts are columns. Payments is the table. *
+
+   SELECT amount
+    FROM payments
+    WHERE amount > 500;
+    *This query will only return the payment amounts of payments that are greater than 500*
+
+    SELECT *
+    FROM payments
+    WHERE payee = 'Mega Foods';
+    *The 'SELECT *' operator means that we will retrieve the entire row where the column payee = 'Mega Foods'.*
+
+
+8.  QUERIES
+
+The email and sign-up date for the user named DeAndre Data.
+SELECT email, sign-up date
+FROM users
+WHERE name = "DeAndre Data"
+
+
+The user ID for the user with email 'aleesia.algorithm@uw.edu'.
+SELECT userid
+FROM users
+WHERE email = 'aleesia@algorithm@uw.edu'
+
+
+All the columns for the user ID equal to 4.
+ SELECT *
+ FROM users
+ where userid = 4
