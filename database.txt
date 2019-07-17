@@ -1,0 +1,160 @@
+1/2. List the commands for adding, updating, and deleting data.
+Explain the structure for each type of command.
+
+To add data, we must first use CREATE TABLE with a name for the table.
+We then list the labels for each column and the specific data type each column will hold.
+Once the table has been creating we can insert data into that structure.
+We use INSERT INTO (table name) (column, column2, column3) followed by VALUES and the data
+for example, (19, "Robert Redford", 82).
+
+To update data we use UPDATE (name of table) SET (some column) WHERE (column_1)= "some value".
+
+To delete data we use DELETE FROM (name of table) WHERE (some_column) = "some value".
+This will remove an entire row.
+To remove more than one row, we can use WHERE with conditionals such as id = 5 AND weight > 25.
+
+----------------------------------------
+3. What are some the data types that can be used in tables? Give a real world example of each.
+
+Postgres has over 40 data types.
+We have various date inputs, one format is numerical. Date: 2019-07-16.
+We have various time inputs, one is really precise and includes time zone 10:09:09 PST.
+Booleans are also a data type, we can store "true" as 'true', 'yes', 'on', '1'.
+Postgres even allows us to store geometric data types. For example, a box can be stored as [ ( x1 , y1 ) , ( x2 , y2 ) ].
+----------------------------------------
+
+4. Think through how to create a new table to hold a list of people invited to a wedding.
+This table needs to have first and last name, whether they sent in their RSVP,
+the number of guests they are bringing, and the number of meals (1 for adults and 1/2 for children).
+
+Which data type would you use to store each of the following pieces of information?
+First and last name. *Text*
+
+Whether they sent in their RSVP. *Boolean type: true or false.*
+Number of guests. *Integer*
+Number of meals. *Numeric(2,1)*
+
+Write a command that makes the table to track the wedding.
+CREATE TABLE wedding (
+name text,
+RSVP boolean,
+guests Integer,
+meals  numeric(2,1)
+);
+
+Using the table we just created, write a command that adds a column to track whether they were sent a thank you card.
+ALTER TABLE wedding ADD COLUMN thank_you boolean;
+
+You have decided to move the data about the meals to another table,
+so write a command to remove the column storing the number meals from the wedding table.
+
+ALTER TABLE wedding DROP COLUMN meals;
+
+The guests are going to need a place to sit at the reception, so write a command that adds a column for table number.
+ALTER TABLE wedding ADD COLUMN table_number integer
+
+
+The wedding is over and we do not need to keep this information, so write a command that deletes the wedding table from the database.
+DROP TABLE wedding;
+
+----------------------------------------
+5. Write a command to make a new table to hold the books in a library with the columns
+ISBN, title, author, genre, publishing date, number of copies, and available copies.
+
+CREATE TABLE library (
+ISBN varchar(13),
+title text,
+author text,
+genre text,
+publishing_date date,
+copies Integer,
+available_copies integer
+);
+
+
+Find three books and add their information to the table.
+INSERT INTO library (ISBN, title, author, genre, publishing_date, copies, available_copies)
+  VALUES
+  (	0-307-34660-9, 'World War Z', "Max Brooks", horror, 09-12-2006, 30, 17),
+  (	0-676-97376-0 , 'Life of Pi', "Yann Martel", fantasy-adventure, 9-11-2011, 40, 15),
+  (0-06-055566-1 , "The Intelligent Investor", "Benjamin Graham", non-fiction, 01-01-1949, 50, 23 ),
+
+
+Someone has just checked out one of the books. Change the available copies column to 1 fewer.
+UPDATE library SET available_copies=16 WHERE title= "World War Z";
+
+Now one of the books has been added to the banned books list. Remove it from the table.
+DELETE FROM library WHERE title= "Life of Pi";
+
+----------------------------------------
+
+
+6. Write a command to make a new table to hold spacecrafts.
+Information should include id, name, year launched, country of origin,
+a brief description of the mission, orbiting body, if it is currently operating,
+and approximate miles from Earth.
+
+CREATE TABLE spacecrafts(
+id integer,
+name text,
+year_launched integer,
+country_of_origin text,
+description text,
+orbiting_body text,
+currently_operating boolean,
+miles_from_earth integer
+);
+
+
+In addition to the table creation, provide commands that perform the following operations:
+
+Add 3 non-Earth-orbiting satellites to the table.
+INSERT INTO spacecrafts (id, name, year_launched, country_of_origin,
+description, orbiting_body, currently_operating, miles_from_earth)
+  VALUES
+  (116, "FalconX", 2018, "USA", "test flight", "Earth", TRUE, 15,000),
+(3, "Apollo 11", 1969, "USA", "lunar landing", "Moon", FALSE, 238,900 ),
+(789, "Astroworld", 2019, "space station music update",  "Earth", TRUE, 22,000 )
+
+
+Remove one of the satellites from the table since it has just been crashed into the planet.
+
+DELETE FROM spacecrafts WHERE id= 116
+
+
+Edit another satellite because it is no longer operating and change the value to reflect that.
+UPDATE library SET currently_operating=FALSE WHERE id=789
+
+----------------------------------------
+
+7.Write a command to make a new table to hold the emails in your inbox.
+ This table should include an id, the subject line, the sender, any additional recipients,
+  the body of the email, the timestamp, whether or not it’s been read,
+  and the id of the email chain it’s in. Also provide commands that perform the following operations:
+
+CREATE TABLE inbox (
+id integer,
+subject_line text,
+sender text,
+addtl_recipients array,
+body text,
+timestamp  timestamp,
+read  boolean,
+id_chain integer
+)
+
+
+Add 3 new emails to the inbox.
+
+(1, "Nice to meet you", "john@hello.com",  , "Hi Timberland, Looking forward to next week.", 2019-11-21 4:45:01, FALSE, 2),
+(2, "Did you see this???", "janis@aol.com",'{kels@hello.com, jaime@hello.com}' , "usatoday.com/gator-at_golf_course.com", 2019-01-23 2:13:00, TRUE, 8),
+(3, "Re: Did you see this???", "elie@icloud.com", '{kels@hello.com, jaime@hello.com, jm@bloc.io}', "Yes that gator stopped the tournament", 2019-11-21 4:55:01, FALSE, 8),
+
+
+
+You’ve just deleted one of the emails, so write a command to remove the row from the inbox table.
+DELETE FROM inbox where id=1;
+
+
+You started reading an email but just heard a crash in another room. Mark the email as unread before investigating, so you can come back to it later.
+UPDATE inbox SET read=FALSE WHERE id=3
