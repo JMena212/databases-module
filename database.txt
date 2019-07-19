@@ -43,7 +43,7 @@ meals  numeric(2,1)
 );
 
 Using the table we just created, write a command that adds a column to track whether they were sent a thank you card.
-ALTER TABLE wedding ADD COLUMN thank_you boolean;
+ALTER TABLE wedding ADD COLUMN sent_thank_you_note boolean;
 
 You have decided to move the data about the meals to another table,
 so write a command to remove the column storing the number meals from the wedding table.
@@ -67,7 +67,7 @@ title text,
 author text,
 genre text,
 publishing_date date,
-copies Integer,
+copies integer,
 available_copies integer
 );
 
@@ -81,10 +81,10 @@ INSERT INTO library (ISBN, title, author, genre, publishing_date, copies, availa
 
 
 Someone has just checked out one of the books. Change the available copies column to 1 fewer.
-UPDATE library SET available_copies=16 WHERE title= "World War Z";
+UPDATE library SET available_copies -1 WHERE title= "World War Z";
 
 Now one of the books has been added to the banned books list. Remove it from the table.
-DELETE FROM library WHERE title= "Life of Pi";
+DELETE FROM library WHERE ISBN= 0-676-97376-0;
 
 ----------------------------------------
 
@@ -112,9 +112,9 @@ Add 3 non-Earth-orbiting satellites to the table.
 INSERT INTO spacecrafts (id, name, year_launched, country_of_origin,
 description, orbiting_body, currently_operating, miles_from_earth)
   VALUES
-  (116, "FalconX", 2018, "USA", "test flight", "Earth", TRUE, 15,000),
-(3, "Apollo 11", 1969, "USA", "lunar landing", "Moon", FALSE, 238,900 ),
-(789, "Astroworld", 2019, "space station music update",  "Earth", TRUE, 22,000 )
+  (1, "FalconX", 2018, "USA", "test flight", "Earth", TRUE, 15,000),
+(2, "Apollo 11", 1969, "USA", "lunar landing", "Moon", FALSE, 238,900 ),
+(3, "Astroworld", 2019, "space station music update",  "Mercury", TRUE, 22,000 )
 
 
 Remove one of the satellites from the table since it has just been crashed into the planet.
@@ -123,7 +123,7 @@ DELETE FROM spacecrafts WHERE id= 116
 
 
 Edit another satellite because it is no longer operating and change the value to reflect that.
-UPDATE library SET currently_operating=FALSE WHERE id=789
+UPDATE spacecrafts SET currently_operating=FALSE WHERE id=789
 
 ----------------------------------------
 
